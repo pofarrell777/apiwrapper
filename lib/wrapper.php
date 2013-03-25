@@ -75,7 +75,7 @@ class XboxApi {
 	public function fetch_profile($gamertag) {
 		if ($this->valid_gamertag($gamertag)) {
 			$parameters = array('gamertag' => $gamertag);
-			return $this->http('profile', $gamertag);
+			return $this->http('profile', $parameters);
 		}
 
 		return false;
@@ -83,9 +83,9 @@ class XboxApi {
 
 	/** Fetch List Of Played Games **/
 	public function fetch_games($gamertag) {
-		if ($this->valid_gamertag($gamertag) {
+		if ($this->valid_gamertag($gamertag)) {
 			$parameters = array('gamertag' => $gamertag);
-			return $this->http('games', $gamertag);
+			return $this->http('games', $parameters);
 		}
 
 		return false;
@@ -93,7 +93,7 @@ class XboxApi {
 
 	/** Fetch Achievement Data **/
 	public function fetch_achievements($gamertag, $gameid) {
-		if ($this->valid_gamertag($gamertag) {
+		if ($this->valid_gamertag($gamertag)) {
 			$parameters = array('gamertag' => $gamertag, 'gameid' => $gameid);
 			return $this->http('achievements', $parameters);
 		}
@@ -103,9 +103,9 @@ class XboxApi {
 
 	/** Fetch Friends List **/
 	public function fetch_friends($gamertag) {
-		if ($this->valid_gamertag($gamertag) {
+		if ($this->valid_gamertag($gamertag)) {
 			$parameters = array('gamertag' => $gamertag);
-			return $this->http('friends', $gamertag);
+			return $this->http('friends', $parameters);
 		}
 
 		return false;
