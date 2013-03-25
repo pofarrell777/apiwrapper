@@ -46,7 +46,8 @@ class XboxApi {
 	}
 
 	private function http($request, $parameters = array()) {
-		$url = $this->endpoint . '.' . $this->format . (!empty($parameters)) ? '?' . http_build_query($parameters, null, '&') : '';
+		$url = $this->endpoint . $request . '.' . $this->format;
+		$url .= !empty($parameters) ? '?' . http_build_query($parameters, null, '&') : '';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
