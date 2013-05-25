@@ -1,15 +1,17 @@
 Xbox API Wrapper
 ===================
 
-Version: 1.0
+Version: 1.1
 
-A simple PHP wrapper for the [XboxLeaders.com Xbox API](http://www.xboxleaders.com/docs)
+A simple PHP wrapper for the [XboxLeaders.com Xbox API](https://www.xboxleaders.com/)
+
+[Blog](https://www.xboxleaders.com/blog/) | [Forums](https://www.xboxleaders.com/forums/)
 
 
 License
 =======
 
-The XboxLeaders API Wrapper is licensed under [Creative Commons Attribution-ShareAlike 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+The XboxLeaders API Wrapper is licensed under [MIT License](http://opensource.org/licenses/mit-license.php)
 
 
 Requirements
