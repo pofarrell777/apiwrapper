@@ -1,17 +1,20 @@
 <?php
-/**
- * wrapper.php
- *
- * @package XboxLeaders API Wrapper 1.0
- * @author Jason Clemons <me@jasonclemons.me>
- * @version 1.0
- */
+/********************************************************************************
+ * XboxLeaders Xbox API Wrapper                                                 *
+ * ============================================================================ *
+ * @package      apiwrapper                                                     *
+ * @author       Jason Clemons <http://about.me/jasonclemons>                   *
+ * @version      1.1                                                            *
+ * @copyright    (c) 2013 Jason Clemons <me@jasonclemons.me>                    *
+ * @license      http://opensource.org/licenses/mit-license.php The MIT License *
+ *******************************************************************************/
 
 class XboxApi {
 
-	public $endpoint = 'https://www.xboxleaders.com/api/';
-	public $timeout = 8;
-	public $format = 'json'; //Can be json, xml, or php
+	public $endpoint   = 'https://www.xboxleaders.com/api/';
+	public $timeout    = 8;
+	public $format     = 'json'; //Can be json, xml, or php
+	public $version    = '2.0';
 
 	public function __construct() {
 		if ($this->format == 'json') {
@@ -38,6 +41,9 @@ class XboxApi {
 				return json_decode($data);
 				break;
 			case 'php':
+				if($this->version !== '1.0') {
+					return false;
+				}
 				return unserialize($data);
 				break;
 		}
@@ -46,7 +52,7 @@ class XboxApi {
 	}
 
 	private function http($request, $parameters = array()) {
-		$url = $this->endpoint . $request . '.' . $this->format;
+		$url = $this->endpoint . $this->version . '/' . $request . '.' . $this->format;
 		$url .= !empty($parameters) ? '?' . http_build_query($parameters, null, '&') : '';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -95,7 +101,12 @@ class XboxApi {
 	/** Fetch Achievement Data **/
 	public function fetch_achievements($gamertag, $gameid) {
 		if ($this->valid_gamertag($gamertag)) {
-			$parameters = array('gamertag' => $gamertag, 'gameid' => $gameid);
+			//!!! 'titleid' changed to 'gameid' post v1.0.
+			if($this->version == '1.0') {
+				$parameters = array('gamertag' => $gamertag, 'titleid' => $gameid);
+			} else {
+				$parameters = array('gamertag' => $gamertag, 'gameid' => $gameid);
+			}
 			return $this->http('achievements', $parameters);
 		}
 

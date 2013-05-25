@@ -2,7 +2,7 @@
 	"name": "xboxleaders api wrapper",
 	"description": "Simple PHP Wrapper for the XboxLeaders.com Xbox LIVE API",
 	"type": "library",
-	"license": "DBAD",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Jason Clemons",
