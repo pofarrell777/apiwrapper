@@ -32,8 +32,10 @@ Simply include the `/lib/wrapper.php` file into whatever script you are going to
         require 'wrapper.php';
         
         $api = new XboxApi();
-        $api->format = 'json';
-        $api->timeout = 6;
+        $api->format = 'json';  // format to request results
+        $api->timeout = 6;      // set timeout for request
+        $api->version = '2.0';  // version of api to use
+        $api->region = 'en-US'; // region to return results from
         
         $games = $api->fetch_games('Major Nelson');
 
@@ -48,3 +50,5 @@ Methods
 `$this->fetch_achievements($gamertag, $gameid);` Returns all achievements and their associated data for the requested gamertag and game.
 
 `$this->fetch_friends($gamertag);` Returns a list of all of the requested gamertags' friends, and their associated data.
+
+`$this->fetch_search($query);` Returns an array of search data from the Xbox Marketplace for the given query.
