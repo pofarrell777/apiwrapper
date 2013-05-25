@@ -13,8 +13,9 @@ class XboxApi {
 
 	public $endpoint   = 'https://www.xboxleaders.com/api/';
 	public $timeout    = 8;
-	public $format     = 'json'; //Can be json, xml, or php
-	public $version    = '2.0';
+	public $region     = 'en-US';  // region to return results from
+	public $format     = 'json';   // can be json, xml, or php
+	public $version    = '2.0';    // api version to use
 
 	public function __construct() {
 		if ($this->format == 'json') {
@@ -81,7 +82,7 @@ class XboxApi {
 	/** Fetch Profile Data **/
 	public function fetch_profile($gamertag) {
 		if ($this->valid_gamertag($gamertag)) {
-			$parameters = array('gamertag' => $gamertag);
+			$parameters = array('gamertag' => $gamertag, 'region' => $this->region);
 			return $this->http('profile', $parameters);
 		}
 
@@ -91,7 +92,7 @@ class XboxApi {
 	/** Fetch List Of Played Games **/
 	public function fetch_games($gamertag) {
 		if ($this->valid_gamertag($gamertag)) {
-			$parameters = array('gamertag' => $gamertag);
+			$parameters = array('gamertag' => $gamertag, 'region' => $this->region);
 			return $this->http('games', $parameters);
 		}
 
@@ -103,9 +104,9 @@ class XboxApi {
 		if ($this->valid_gamertag($gamertag)) {
 			//!!! 'titleid' changed to 'gameid' post v1.0.
 			if($this->version == '1.0') {
-				$parameters = array('gamertag' => $gamertag, 'titleid' => $gameid);
+				$parameters = array('gamertag' => $gamertag, 'titleid' => $gameid, 'region' => $this->region);
 			} else {
-				$parameters = array('gamertag' => $gamertag, 'gameid' => $gameid);
+				$parameters = array('gamertag' => $gamertag, 'gameid' => $gameid, 'region' => $this->region);
 			}
 			return $this->http('achievements', $parameters);
 		}
@@ -116,11 +117,17 @@ class XboxApi {
 	/** Fetch Friends List **/
 	public function fetch_friends($gamertag) {
 		if ($this->valid_gamertag($gamertag)) {
-			$parameters = array('gamertag' => $gamertag);
+			$parameters = array('gamertag' => $gamertag, 'region' => $this->region);
 			return $this->http('friends', $parameters);
 		}
 
 		return false;
+	}
+
+	/** Fetch Marketplace Search **/
+	public function fetch_search($query) {
+		$parameters = array('query' => urlencode($query), 'region' => $this->region);
+		return $this->http('search', $parameters);
 	}
 
 }
